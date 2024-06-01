@@ -74,7 +74,7 @@ Before you begin, ensure you have met the following requirements:
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: Signup(), // Your initial screen
+          home: Home(), // Your initial screen
         );
       }
     }
