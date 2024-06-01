@@ -50,6 +50,7 @@ Before you begin, ensure you have met the following requirements:
     dependencies:
       firebase_core: latest_version
       firebase_auth: latest_version
+      cloud_firestore: latest_version
       flutter:
         sdk: flutter
     ```

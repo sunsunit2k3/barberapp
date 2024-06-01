@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:barberapp/pages/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -206,7 +208,7 @@ class _SignupState extends State<Signup> {
                         ),
                         child: const Center(
                           child: Text(
-                            "Sign In",
+                            "Sign Up",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 26.0,

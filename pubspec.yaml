@@ -11,7 +11,6 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.6
   firebase_core: ^2.32.0
-  firebase_ui_auth: ^1.14.0
   firebase_auth: ^4.20.0
   cloud_firestore: ^4.17.5
 
