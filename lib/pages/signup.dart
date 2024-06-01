@@ -1,8 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:barberapp/pages/login.dart';
+import 'package:barberapp/services/database.dart';
+import 'package:barberapp/widgets/snack_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:random_string/random_string.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -19,52 +22,33 @@ class _SignupState extends State<Signup> {
 
   final _formKey = GlobalKey<FormState>();
 
-  registraion() async {
-    if (password != null && name != null && email != null) {
+  Future<void> registration() async {
+    if (_formKey.currentState!.validate()) {
       try {
         UserCredential userCredential =
             await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email!,
           password: password!,
         );
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              "User Registered Successfully",
-              style: TextStyle(fontSize: 28.0),
-            ),
-          ),
-        );
-        Navigator.push(
+        String id = randomAlphaNumeric(10);
+        Map<String, dynamic> userInfo = {
+          "id": id,
+          "name": nameController.text,
+          "email": emailController.text,
+          "image":
+              "https://png.pngtree.com/thumb_back/fh260/background/20230516/pngtree-cute-wallpapers-cats-wallpapers-hd-4k-wallpapers-desktop-wallpapers-hd-image_2562853.jpg",
+        };
+        await DatabaseMethods().addUserDetails(userInfo, id);
+        showSnackBar(context, "User Registered Successfully", duration: 3);
+        Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => const Login()));
       } on FirebaseException catch (e) {
         if (e.code == 'weak-password') {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                "The password provided is too weak.",
-                style: TextStyle(fontSize: 20.0),
-              ),
-            ),
-          );
+          showSnackBar(context, "The password provided is too weak.");
         } else if (e.code == 'email-already-in-use') {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                "The account already exists for that email.",
-                style: TextStyle(fontSize: 20.0),
-              ),
-            ),
-          );
+          showSnackBar(context, "The account already exists for that email.");
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                "Something went wrong",
-                style: TextStyle(fontSize: 20.0),
-              ),
-            ),
-          );
+          showSnackBar(context, "Something went wrong");
         }
       }
     }
@@ -190,7 +174,7 @@ class _SignupState extends State<Signup> {
                             email = emailController.text;
                             password = passwordController.text;
                           });
-                          registraion();
+                          registration();
                         }
                       },
                       child: Container(
