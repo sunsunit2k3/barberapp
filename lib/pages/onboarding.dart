@@ -1,3 +1,4 @@
+import 'package:barberapp/pages/login.dart';
 import 'package:flutter/material.dart';
 
 class OnBorading extends StatelessWidget {
@@ -12,22 +13,28 @@ class OnBorading extends StatelessWidget {
           child: Column(
             children: [
               const Image(
-                image: AssetImage("asset/images/barber.png"),
+                image: AssetImage("assets/images/barber.png"),
               ),
               const SizedBox(height: 100),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFdf711a),
-                  borderRadius: BorderRadius.circular(30),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => const Login()));
+                },
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFdf711a),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: const Text("Get a Stylish Haircut",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      )),
                 ),
-                child: const Text("Get a Stylish Haircut",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    )),
               )
             ],
           )),

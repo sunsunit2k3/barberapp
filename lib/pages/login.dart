@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+import 'package:barberapp/models/user_model.dart';
 import 'package:barberapp/pages/home.dart';
 import 'package:barberapp/pages/signup.dart';
+import 'package:barberapp/widgets/snack_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -16,33 +19,48 @@ class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  userLogin() async {
+
+  Future<void> userLogin() async {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email!, password: password!);
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const Home()),
-      );
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: email)
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        var userDoc = querySnapshot.docs.first;
+        var userData = userDoc.data() as Map<String, dynamic>;
+        UserModel user = UserModel(
+          id: userData['id'],
+          name: userData['name'],
+          email: userData['email'],
+          image: userData['image'],
+        );
+
+        // Show success message
+        showSnackBar(context, "User Login Successfully", duration: 2);
+
+        // Navigate to Home screen
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Home(
+              user: user,
+            ),
+          ),
+        );
+      } else {
+        showSnackBar(context, "User data not found.");
+      }
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              "No user found for that email.",
-              style: TextStyle(fontSize: 20.0),
-            ),
-          ),
-        );
-      } else if (e.code == 'wrong-password') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              "Wrong password provided for that user.",
-              style: TextStyle(fontSize: 20.0),
-            ),
-          ),
-        );
+      if (e.code == 'invalid-email') {
+        showSnackBar(context, "No user found for that email.");
+      } else if (e.code == 'invalid-credential') {
+        showSnackBar(context, "Wrong password provided for that user.");
+      } else {
+        showSnackBar(context, "Something went wrong");
+        // print(e.code);
       }
     }
   }
