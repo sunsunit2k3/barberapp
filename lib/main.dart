@@ -1,7 +1,5 @@
 import 'package:barberapp/firebase_options.dart';
-import 'package:barberapp/pages/home.dart';
-import 'package:barberapp/pages/login.dart';
-import 'package:barberapp/pages/onboarding.dart';
+import 'package:barberapp/views/onboarding.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 

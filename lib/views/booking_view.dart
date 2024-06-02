@@ -1,12 +1,11 @@
+// booking_view.dart
 import 'dart:async';
 
-import 'package:barberapp/pages/home.dart';
-import 'package:barberapp/services/database.dart';
+import 'package:barberapp/controllers/booking_controller.dart';
+import 'package:barberapp/models/booking_model.dart';
+import 'package:barberapp/models/user_model.dart';
 import 'package:barberapp/widgets/snack_bar.dart';
 import 'package:flutter/material.dart';
-
-import 'package:barberapp/models/user_model.dart';
-import 'package:random_string/random_string.dart';
 
 class Booking extends StatefulWidget {
   String service;
@@ -16,12 +15,15 @@ class Booking extends StatefulWidget {
     required this.service,
     required this.user,
   });
+
   @override
   State<Booking> createState() => _BookingState();
 }
 
 class _BookingState extends State<Booking> {
   DateTime _selectedDate = DateTime.now();
+  TimeOfDay _selectedTime = TimeOfDay.now();
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -48,7 +50,6 @@ class _BookingState extends State<Booking> {
     }
   }
 
-  TimeOfDay _selectedTime = TimeOfDay.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -183,22 +184,16 @@ class _BookingState extends State<Booking> {
                 const SizedBox(height: 20.0),
                 GestureDetector(
                   onTap: () async {
-                    Map<String, dynamic> booking = {
-                      "service": widget.service,
-                      "date":
-                          "${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}",
-                      "time": _selectedTime.format(context),
-                      "name": widget.user.name,
-                      "email": widget.user.email,
-                    };
-                    String id = randomAlphaNumeric(10);
-                    await DatabaseMethods()
-                        .addUserBooking(booking, id)
-                        .then((value) => {
-                              showSnackBar(context, "Booking Successful",
-                                  duration: 3),
-                              Navigator.pop(context),
-                            });
+                    BookingModel booking = BookingModel(
+                      service: widget.service,
+                      date: _selectedDate,
+                      time: _selectedTime,
+                      user: widget.user,
+                    );
+                    await BookingController().addBooking(booking).then((value) {
+                      showSnackBar(context, "Booking Successful", duration: 3);
+                      Navigator.pop(context);
+                    });
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
