@@ -98,39 +98,41 @@ The Barber App follows the MVC (Model-View-Controller) architecture to maintain 
   }
   
 Example `ServiceWidget`:
-    class ServiceWidget extends StatelessWidget {
-      final ServiceModel service;
-      final UserModel user;
-    
-      const ServiceWidget({required this.service, required this.user});
-    
-      @override
-      Widget build(BuildContext context) {
-        return Card(
-          child: Column(
-            children: [
-              Text(service.name),
-              Text(service.description),
-              Text('\$${service.price}'),
-              // Add more UI elements here
-            ],
-          ),
-        );
-      }
-    }
+```dart
+class ServiceWidget extends StatelessWidget {
+  final ServiceModel service;
+  final UserModel user;
+
+  const ServiceWidget({required this.service, required this.user});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        children: [
+          Text(service.name),
+          Text(service.description),
+          Text('\$${service.price}'),
+          // Add more UI elements here
+        ],
+      ),
+    );
+  }
+}
     
 Example `ServiceController`:
-    class ServiceController {
-      final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-    
-      Stream<List<ServiceModel>> getServicesStream() {
-        return _firestore.collection('services').snapshots().map((snapshot) {
-          return snapshot.docs.map((doc) {
-            return ServiceModel.fromMap(doc.data() as Map<String, dynamic>);
-          }).toList();
-        });
-      }
-    }
+```dart
+class ServiceController {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Stream<List<ServiceModel>> getServicesStream() {
+    return _firestore.collection('services').snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        return ServiceModel.fromMap(doc.data() as Map<String, dynamic>);
+      }).toList();
+    });
+  }
+}
 
 
 
