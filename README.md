@@ -80,9 +80,57 @@ Before you begin, ensure you have met the following requirements:
     }
     ```
 
-### Running the App
+### MVC Architecture
 
-To run the app, execute the following command in the project directory:
+The Barber App follows the MVC (Model-View-Controller) architecture to maintain a clean and organized codebase.
 
-```sh
-flutter run
+- **Model:** This layer is responsible for representing the data and business logic. The models in this app include `UserModel` and `ServiceModel`. These classes define the structure of user and service data and contain methods to manipulate the data.
+
+  Example `UserModel`:
+  ```dart
+  class UserModel {
+    final String id;
+    final String name;
+    final String email;
+    final String image;
+
+    UserModel({required this.id, required this.name, required this.email, required this.image});
+  }
+  
+Example `ServiceWidget`:
+    class ServiceWidget extends StatelessWidget {
+      final ServiceModel service;
+      final UserModel user;
+    
+      const ServiceWidget({required this.service, required this.user});
+    
+      @override
+      Widget build(BuildContext context) {
+        return Card(
+          child: Column(
+            children: [
+              Text(service.name),
+              Text(service.description),
+              Text('\$${service.price}'),
+              // Add more UI elements here
+            ],
+          ),
+        );
+      }
+    }
+    
+Example `ServiceController`:
+    class ServiceController {
+      final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    
+      Stream<List<ServiceModel>> getServicesStream() {
+        return _firestore.collection('services').snapshots().map((snapshot) {
+          return snapshot.docs.map((doc) {
+            return ServiceModel.fromMap(doc.data() as Map<String, dynamic>);
+          }).toList();
+        });
+      }
+    }
+
+
+
