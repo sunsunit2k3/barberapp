@@ -8,7 +8,21 @@ class DatabaseMethods {
         .set(userInfo);
   }
 
-  Future addUserBooking(Map<String, dynamic> bookingInfo, String id) async {
+  Future addBooking(Map<String, dynamic> bookingInfo, String id) async {
+    return await FirebaseFirestore.instance
+        .collection("bookings")
+        .doc(id)
+        .set(bookingInfo);
+  }
+
+  Future deleteBooking(String id) async {
+    return await FirebaseFirestore.instance
+        .collection("bookings")
+        .doc(id)
+        .delete();
+  }
+
+  Future updateBooking(Map<String, dynamic> bookingInfo, String id) async {
     return await FirebaseFirestore.instance
         .collection("bookings")
         .doc(id)

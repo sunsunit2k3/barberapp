@@ -1,66 +1,56 @@
 // ignore_for_file: use_build_context_synchronously
-import 'package:barberapp/models/user_model.dart';
-import 'package:barberapp/pages/home.dart';
-import 'package:barberapp/pages/signup.dart';
+
+import 'package:barberapp/views/login.dart';
+import 'package:barberapp/services/database.dart';
 import 'package:barberapp/widgets/snack_bar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:random_string/random_string.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Signup extends StatefulWidget {
+  const Signup({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Signup> createState() => _SignupState();
 }
 
-class _LoginState extends State<Login> {
-  String? password, email;
+class _SignupState extends State<Signup> {
+  String? name, password, email;
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
 
-  Future<void> userLogin() async {
-    try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email!, password: password!);
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .where('email', isEqualTo: email)
-          .get();
-      if (querySnapshot.docs.isNotEmpty) {
-        var userDoc = querySnapshot.docs.first;
-        var userData = userDoc.data() as Map<String, dynamic>;
-        UserModel user = UserModel(
-          id: userData['id'],
-          name: userData['name'],
-          email: userData['email'],
-          image: userData['image'],
+  Future<void> registration() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        // ignore: unused_local_variable
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email!,
+          password: password!,
         );
-
-        // Show success message
-        showSnackBar(context, "User Login Successfully", duration: 2);
-
-        // Navigate to Home screen
+        String id = randomAlphaNumeric(10);
+        Map<String, dynamic> userInfo = {
+          "id": id,
+          "name": nameController.text,
+          "email": emailController.text,
+          "image":
+              "https://png.pngtree.com/thumb_back/fh260/background/20230516/pngtree-cute-wallpapers-cats-wallpapers-hd-4k-wallpapers-desktop-wallpapers-hd-image_2562853.jpg",
+        };
+        await DatabaseMethods().addUserDetails(userInfo, id);
+        showSnackBar(context, "User Registered Successfully", duration: 3);
         Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Home(
-              user: user,
-            ),
-          ),
-        );
-      } else {
-        showSnackBar(context, "User data not found.");
-      }
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'invalid-email') {
-        showSnackBar(context, "No user found for that email.");
-      } else if (e.code == 'invalid-credential') {
-        showSnackBar(context, "Wrong password provided for that user.");
-      } else {
-        showSnackBar(context, "Something went wrong");
-        // print(e.code);
+            context, MaterialPageRoute(builder: (context) => const Login()));
+      } on FirebaseException catch (e) {
+        if (e.code == 'weak-password') {
+          showSnackBar(context, "The password provided is too weak.");
+        } else if (e.code == 'email-already-in-use') {
+          showSnackBar(context, "The account already exists for that email.");
+        } else {
+          showSnackBar(context, "Something went wrong");
+        }
       }
     }
   }
@@ -85,7 +75,7 @@ class _LoginState extends State<Login> {
               color: Color(0xFF2b1615),
             ),
             child: const Text(
-              "Hello\nSign In!",
+              "Create your\nAccount !",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 32,
@@ -94,7 +84,8 @@ class _LoginState extends State<Login> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.only(top: 40.0, left: 30.0, right: 30.0),
+            padding: const EdgeInsets.only(
+                top: 40.0, left: 30.0, right: 30.0, bottom: 20.0),
             margin:
                 EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
             height: MediaQuery.of(context).size.height,
@@ -112,6 +103,27 @@ class _LoginState extends State<Login> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const Text(
+                      "Name",
+                      style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xFFB81635)),
+                    ),
+                    TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Please enter your name";
+                        }
+                        return null;
+                      },
+                      controller: nameController,
+                      decoration: const InputDecoration(
+                          hintText: "Enter your name",
+                          hintStyle: TextStyle(color: Colors.grey),
+                          prefixIcon: Icon(Icons.account_box_rounded)),
+                    ),
+                    const SizedBox(height: 20.0),
                     const Text(
                       "Gmail",
                       style: TextStyle(
@@ -149,31 +161,21 @@ class _LoginState extends State<Login> {
                       },
                       controller: passwordController,
                       decoration: const InputDecoration(
-                          hintText: "Enter your email",
+                          hintText: "Enter your Password",
                           hintStyle: TextStyle(color: Colors.grey),
                           prefixIcon: Icon(Icons.password_outlined)),
                       obscureText: true,
-                    ),
-                    const SizedBox(height: 20.0),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          "Forgot Password?",
-                          style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xff311937)),
-                        ),
-                      ],
                     ),
                     const SizedBox(height: 80.0),
                     GestureDetector(
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
-                          email = emailController.text;
-                          password = passwordController.text;
-                          userLogin();
+                          setState(() {
+                            name = nameController.text;
+                            email = emailController.text;
+                            password = passwordController.text;
+                          });
+                          registration();
                         }
                       },
                       child: Container(
@@ -191,7 +193,7 @@ class _LoginState extends State<Login> {
                         ),
                         child: const Center(
                           child: Text(
-                            "Sign In",
+                            "Sign Up",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 26.0,
@@ -200,12 +202,12 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 30.0),
+                    const SizedBox(height: 20.0),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          "Don't have account?",
+                          "Already have an account?",
                           style:
                               TextStyle(color: Color(0xff621d3c), fontSize: 20),
                         ),
@@ -214,19 +216,20 @@ class _LoginState extends State<Login> {
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Signup()),
-                        );
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Login()));
                       },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text("Sign Up",
-                              style: TextStyle(
-                                  color: Color(0xFFB81635),
-                                  fontSize: 28.0,
-                                  fontWeight: FontWeight.w500)),
+                          Text(
+                            "Sign In",
+                            style: TextStyle(
+                                color: Color(0xFFB81635),
+                                fontSize: 28.0,
+                                fontWeight: FontWeight.w500),
+                          ),
                         ],
                       ),
                     ),

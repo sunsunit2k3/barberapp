@@ -1,4 +1,4 @@
-import 'package:barberapp/pages/login.dart';
+import 'package:barberapp/views/login.dart';
 import 'package:flutter/material.dart';
 
 class OnBorading extends StatelessWidget {

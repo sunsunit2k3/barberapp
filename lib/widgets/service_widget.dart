@@ -1,10 +1,10 @@
+import 'package:barberapp/models/services.dart';
 import 'package:barberapp/models/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:barberapp/pages/booking.dart';
+import 'package:barberapp/views/booking_view.dart';
 
 class ServiceWidget extends StatelessWidget {
-  final DocumentSnapshot service;
+  final ServiceModel service;
   final UserModel user;
   const ServiceWidget({
     super.key,
@@ -14,8 +14,8 @@ class ServiceWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final serviceName = service['name'];
-    final serviceImageURL = service['image_url'];
+    final serviceName = service.name;
+    final serviceImageURL = service.image_url;
     return Flexible(
       fit: FlexFit.tight,
       child: GestureDetector(

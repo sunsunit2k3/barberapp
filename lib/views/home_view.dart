@@ -1,7 +1,9 @@
+// home_view.dart
+import 'package:barberapp/controllers/service_controller.dart';
+import 'package:barberapp/models/services.dart';
 import 'package:barberapp/models/user_model.dart';
 import 'package:barberapp/widgets/service_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatefulWidget {
   final UserModel user;
@@ -12,6 +14,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final ServiceController _controller = ServiceController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,17 +77,15 @@ class _HomeState extends State<Home> {
             ),
             const SizedBox(height: 20.0),
             Expanded(
-              child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('services')
-                    .snapshots(),
+              child: StreamBuilder<List<ServiceModel>>(
+                stream: _controller.getServicesStream(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
-                  final services = snapshot.data!.docs;
+                  final services = snapshot.data!;
                   List<Widget> rows = [];
                   for (int i = 0; i < services.length; i += 2) {
                     // Create a new row for each pair of services
