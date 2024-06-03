@@ -1,31 +1,31 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class DatabaseMethods {
-  Future addUserDetails(Map<String, dynamic> userInfo, String id) async {
-    return await FirebaseFirestore.instance
-        .collection("users")
-        .doc(id)
-        .set(userInfo);
+class FirestoreService {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<void> setDocument(
+      String collection, String id, Map<String, dynamic> data) async {
+    return await _firestore.collection(collection).doc(id).set(data);
   }
 
-  Future addBooking(Map<String, dynamic> bookingInfo, String id) async {
-    return await FirebaseFirestore.instance
-        .collection("bookings")
-        .doc(id)
-        .set(bookingInfo);
+  Future<void> deleteDocument(String collection, String id) async {
+    return await _firestore.collection(collection).doc(id).delete();
   }
 
-  Future deleteBooking(String id) async {
-    return await FirebaseFirestore.instance
-        .collection("bookings")
-        .doc(id)
-        .delete();
+  Future<void> updateDocument(
+      String collection, String id, Map<String, dynamic> data) async {
+    return await _firestore.collection(collection).doc(id).update(data);
   }
 
-  Future updateBooking(Map<String, dynamic> bookingInfo, String id) async {
-    return await FirebaseFirestore.instance
-        .collection("bookings")
-        .doc(id)
-        .set(bookingInfo);
+  Future<DocumentSnapshot> getDocumentById(String collection, String id) async {
+    return await _firestore.collection(collection).doc(id).get();
+  }
+
+  Future<QuerySnapshot> getDocumentsByUserId(
+      String collection, String userId) async {
+    return await _firestore
+        .collection(collection)
+        .where('userId', isEqualTo: userId)
+        .get();
   }
 }

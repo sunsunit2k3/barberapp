@@ -1,28 +1,28 @@
-// booking_model.dart
-import 'package:barberapp/models/user_model.dart';
-import 'package:flutter/material.dart';
-
 class BookingModel {
-  String service;
-  DateTime date;
-  TimeOfDay time;
-  UserModel user;
+  final String user_id; // Add this line
+  final String id;
+  final String service;
+  final String date;
+  final String time;
+  final String status;
 
   BookingModel({
+    required this.id,
+    required this.user_id,
     required this.service,
     required this.date,
     required this.time,
-    required this.user,
+    required this.status,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      "service": service,
-      "date": "${date.day}/${date.month}/${date.year}",
-      "time":
-          "${time.hour}:${time.minute} ${time.period == DayPeriod.am ? 'AM' : 'PM'}",
-      "name": user.name,
-      "email": user.email,
-    };
+  factory BookingModel.fromMap(Map<String, dynamic> data) {
+    return BookingModel(
+      user_id: data['user_id'] ?? '',
+      id: data['id'] ?? '',
+      service: data['service'] ?? '',
+      date: data['date'] ?? '',
+      time: data['time'] ?? '',
+      status: data['status'] ?? '',
+    );
   }
 }

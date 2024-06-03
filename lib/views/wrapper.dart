@@ -1,7 +1,7 @@
 import 'package:barberapp/models/user_model.dart';
-import 'package:barberapp/views/history_screen.dart';
-import 'package:barberapp/views/home_view.dart';
-import 'package:barberapp/views/information_screen.dart';
+import 'package:barberapp/views/history/history_screen.dart';
+import 'package:barberapp/views/home/home_view.dart';
+import 'package:barberapp/views/information/information_screen.dart';
 import 'package:flutter/material.dart';
 
 class Wrapper extends StatefulWidget {
@@ -20,7 +20,9 @@ class _WrapperState extends State<Wrapper> {
     super.initState();
     widgets = [
       Home(user: widget.user),
-      HistoryScreen(user: widget.user),
+      HistoryScreen(
+        user: widget.user,
+      ),
       InformationScreen(user: widget.user)
     ];
   }

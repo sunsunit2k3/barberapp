@@ -2,10 +2,11 @@
 import 'dart:async';
 
 import 'package:barberapp/controllers/booking_controller.dart';
-import 'package:barberapp/models/booking_model.dart';
 import 'package:barberapp/models/user_model.dart';
+import 'package:barberapp/ultils/date_time_utils.dart';
 import 'package:barberapp/widgets/snack_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:random_string/random_string.dart';
 
 class Booking extends StatefulWidget {
   String service;
@@ -23,32 +24,6 @@ class Booking extends StatefulWidget {
 class _BookingState extends State<Booking> {
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: _selectedDate,
-      firstDate: DateTime(2024),
-      lastDate: DateTime(2025),
-    );
-    if (picked != null && picked != _selectedDate) {
-      setState(() {
-        _selectedDate = picked;
-      });
-    }
-  }
-
-  Future<void> _selectTime(BuildContext context) async {
-    final TimeOfDay? picked = await showTimePicker(
-      context: context,
-      initialTime: _selectedTime,
-    );
-    if (picked != null && picked != _selectedTime) {
-      setState(() {
-        _selectedTime = picked;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +95,12 @@ class _BookingState extends State<Booking> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           GestureDetector(
-                            onTap: () => _selectDate(context),
+                            onTap: () => DateTimeUtils.selectDate(
+                                context, _selectedDate, (DateTime picked) {
+                              setState(() {
+                                _selectedDate = picked;
+                              });
+                            }),
                             child: const Icon(
                               Icons.calendar_month,
                               color: Colors.white,
@@ -161,7 +141,12 @@ class _BookingState extends State<Booking> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           GestureDetector(
-                            onTap: () => _selectTime(context),
+                            onTap: () => DateTimeUtils.selectTime(
+                                context, _selectedTime, (TimeOfDay picked) {
+                              setState(() {
+                                _selectedTime = picked;
+                              });
+                            }),
                             child: const Icon(
                               Icons.alarm,
                               color: Colors.white,
@@ -184,13 +169,19 @@ class _BookingState extends State<Booking> {
                 const SizedBox(height: 20.0),
                 GestureDetector(
                   onTap: () async {
-                    BookingModel booking = BookingModel(
-                      service: widget.service,
-                      date: _selectedDate,
-                      time: _selectedTime,
-                      user: widget.user,
-                    );
-                    await BookingController().addBooking(booking).then((value) {
+                    String id = randomAlphaNumeric(10);
+                    Map<String, dynamic> booking = {
+                      "id": id,
+                      "service": widget.service,
+                      "date":
+                          "${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}",
+                      "time": _selectedTime.format(context).toString(),
+                      "user_id": widget.user.id,
+                      "status": "pending",
+                    };
+                    await BookingController()
+                        .addBooking(booking, id)
+                        .then((value) {
                       showSnackBar(context, "Booking Successful", duration: 3);
                       Navigator.pop(context);
                     });

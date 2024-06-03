@@ -8,7 +8,7 @@ class ServiceModel {
     required this.image_url,
   });
 
-  factory ServiceModel.fromDocument(doc) {
+  factory ServiceModel.fromMap(Map<String, dynamic> doc) {
     return ServiceModel(
       image_url: doc['image_url'],
       name: doc['name'],

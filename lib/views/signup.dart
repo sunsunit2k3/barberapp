@@ -19,10 +19,13 @@ class _SignupState extends State<Signup> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
 
   Future<void> registration() async {
+    setState(() {
+      _isLoading = true;
+    });
     if (_formKey.currentState!.validate()) {
       try {
         // ignore: unused_local_variable
@@ -39,7 +42,7 @@ class _SignupState extends State<Signup> {
           "image":
               "https://png.pngtree.com/thumb_back/fh260/background/20230516/pngtree-cute-wallpapers-cats-wallpapers-hd-4k-wallpapers-desktop-wallpapers-hd-image_2562853.jpg",
         };
-        await DatabaseMethods().addUserDetails(userInfo, id);
+        await FirestoreService().setDocument("users", id, userInfo);
         showSnackBar(context, "User Registered Successfully", duration: 3);
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => const Login()));
@@ -48,9 +51,15 @@ class _SignupState extends State<Signup> {
           showSnackBar(context, "The password provided is too weak.");
         } else if (e.code == 'email-already-in-use') {
           showSnackBar(context, "The account already exists for that email.");
+        } else if (e.code == 'invalid-email') {
+          showSnackBar(context, "The email address is badly formatted.");
         } else {
           showSnackBar(context, "Something went wrong");
         }
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
       }
     }
   }
@@ -191,14 +200,19 @@ class _SignupState extends State<Signup> {
                           ),
                           borderRadius: BorderRadius.circular(30.0),
                         ),
-                        child: const Center(
-                          child: Text(
-                            "Sign Up",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 26.0,
-                                fontWeight: FontWeight.w500),
-                          ),
+                        child: Center(
+                          child: _isLoading
+                              ? const CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white),
+                                )
+                              : const Text(
+                                  "Sign Up",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 26.0,
+                                      fontWeight: FontWeight.w500),
+                                ),
                         ),
                       ),
                     ),

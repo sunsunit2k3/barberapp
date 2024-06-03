@@ -1,7 +1,7 @@
 import 'package:barberapp/models/services.dart';
 import 'package:barberapp/models/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:barberapp/views/booking_view.dart';
+import 'package:barberapp/views/home/booking_view.dart';
 
 class ServiceWidget extends StatelessWidget {
   final ServiceModel service;

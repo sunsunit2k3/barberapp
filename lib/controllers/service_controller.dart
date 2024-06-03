@@ -4,8 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class ServiceController {
   Stream<List<ServiceModel>> getServicesStream() {
     return FirebaseFirestore.instance.collection('services').snapshots().map(
-        (snapshot) => snapshot.docs
-            .map((doc) => ServiceModel.fromDocument(doc))
-            .toList());
+      (snapshot) {
+        return snapshot.docs.map((doc) {
+          return ServiceModel.fromMap(doc.data() as Map<String, dynamic>);
+        }).toList();
+      },
+    );
   }
 }
