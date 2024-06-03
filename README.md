@@ -11,10 +11,12 @@ Welcome to the Barber App! This Flutter application allows users to book service
 
 ## Screenshots
 
-<img src="screenshots/HomeScreen.png" alt="Home Screen" width="200"/>
+<div style="display:flex">
+    <img src="screenshots/HomeScreen.png" alt="Home Screen" width="200"/>
 <img src="screenshots/BookingScreen.png" alt="Booking Screen" width="200"/>
 <img src="screenshots/HistoryScreen.png" alt="History Screen" width="200"/>
 <img src="screenshots/InforScreen.png" alt="Info Screen" width="200"/>
+</div>
 
 ## Getting Started
 
