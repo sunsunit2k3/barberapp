@@ -80,10 +80,11 @@ class _HomeState extends State<Home> {
               child: StreamBuilder<List<ServiceModel>>(
                 stream: _controller.getServicesStream(),
                 builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  }
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Text('No Service not foud.');
                   }
                   final services = snapshot.data!;
                   List<Widget> rows = [];
