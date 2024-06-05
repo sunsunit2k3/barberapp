@@ -6,7 +6,7 @@ class ServiceController {
     return FirebaseFirestore.instance.collection('services').snapshots().map(
       (snapshot) {
         return snapshot.docs.map((doc) {
-          return ServiceModel.fromMap(doc.data() as Map<String, dynamic>);
+          return ServiceModel.fromMap(doc.data());
         }).toList();
       },
     );

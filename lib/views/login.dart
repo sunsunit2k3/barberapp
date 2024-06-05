@@ -1,8 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:barberapp/models/user_model.dart';
+import 'package:barberapp/views/admin/admin_screem.dart';
 import 'package:barberapp/views/signup.dart';
-import 'package:barberapp/views/wrapper.dart';
+import 'package:barberapp/views/user/forgot_password_screen.dart';
+import 'package:barberapp/views/user/wrapper.dart';
 import 'package:barberapp/widgets/snack_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -42,20 +44,30 @@ class _LoginState extends State<Login> {
           name: userData['name'],
           email: userData['email'],
           image: userData['image'],
+          role: userData['role'],
         );
 
-        // Show success message
-        showSnackBar(context, "User Login Successfully", duration: 2);
-
-        // Navigate to Home screen
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Wrapper(
-              user: user,
+        if (user.role == "User") {
+          showSnackBar(context, "User Login Successfully", duration: 2);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Wrapper(
+                user: user,
+              ),
             ),
-          ),
-        );
+          );
+        } else {
+          showSnackBar(context, "Admin Login Successfully", duration: 2);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => WrapperAdmin(
+                user: user,
+              ),
+            ),
+          );
+        }
       } else {
         showSnackBar(context, "User data not found.");
       }
@@ -84,15 +96,8 @@ class _LoginState extends State<Login> {
             height: MediaQuery.of(context).size.height / 2,
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.only(top: 50.0, left: 20.0),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFFB81635),
-                  Color(0xff621d3c),
-                  Color(0xff311937),
-                ],
-              ),
-              color: Color(0xFF2b1615),
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
             ),
             child: const Text(
               "Hello\nSign In!",
@@ -122,12 +127,12 @@ class _LoginState extends State<Login> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "Gmail",
                       style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xFFB81635)),
+                          color: Theme.of(context).primaryColor),
                     ),
                     TextFormField(
                       validator: (value) {
@@ -143,12 +148,12 @@ class _LoginState extends State<Login> {
                           prefixIcon: Icon(Icons.email)),
                     ),
                     const SizedBox(height: 20.0),
-                    const Text(
+                    Text(
                       "Password",
                       style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xFFB81635)),
+                          color: Theme.of(context).primaryColor),
                     ),
                     TextFormField(
                       validator: (value) {
@@ -165,15 +170,26 @@ class _LoginState extends State<Login> {
                       obscureText: true,
                     ),
                     const SizedBox(height: 20.0),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(
-                          "Forgot Password?",
-                          style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xff311937)),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const ForgotPasswordScreen(),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            "Forgot Password?",
+                            style: TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xff311937)),
+                          ),
                         ),
                       ],
                     ),
@@ -190,13 +206,7 @@ class _LoginState extends State<Login> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [
-                              Color(0xFFB81635),
-                              Color(0xff621d3c),
-                              Color(0xff311937),
-                            ],
-                          ),
+                          color: Theme.of(context).primaryColor,
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                         child: Center(
@@ -216,13 +226,14 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     const SizedBox(height: 30.0),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
                           "Don't have an account?",
-                          style:
-                              TextStyle(color: Color(0xff621d3c), fontSize: 20),
+                          style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 20),
                         ),
                       ],
                     ),
@@ -234,12 +245,12 @@ class _LoginState extends State<Login> {
                               builder: (context) => const Signup()),
                         );
                       },
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text("Sign Up",
                               style: TextStyle(
-                                  color: Color(0xFFB81635),
+                                  color: Theme.of(context).primaryColor,
                                   fontSize: 28.0,
                                   fontWeight: FontWeight.w500)),
                         ],

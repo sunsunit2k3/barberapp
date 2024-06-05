@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:barberapp/models/user_model.dart';
 import 'package:barberapp/views/login.dart';
 import 'package:barberapp/widgets/snack_bar.dart';

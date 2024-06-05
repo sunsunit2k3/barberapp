@@ -1,26 +1,26 @@
 import 'package:barberapp/models/user_model.dart';
-import 'package:barberapp/views/history/history_screen.dart';
-import 'package:barberapp/views/home/home_view.dart';
-import 'package:barberapp/views/information/information_screen.dart';
+import 'package:barberapp/views/admin/booking_list_screen.dart';
+import 'package:barberapp/views/admin/services_manage_screen.dart';
+import 'package:barberapp/views/information_screen.dart';
 import 'package:flutter/material.dart';
 
-class Wrapper extends StatefulWidget {
+class WrapperAdmin extends StatefulWidget {
   final UserModel user;
-  const Wrapper({super.key, required this.user});
+  const WrapperAdmin({super.key, required this.user});
 
   @override
-  State<Wrapper> createState() => _WrapperState();
+  State<WrapperAdmin> createState() => _WrapperAdminState();
 }
 
-class _WrapperState extends State<Wrapper> {
+class _WrapperAdminState extends State<WrapperAdmin> {
   late List<Widget> widgets;
 
   @override
   void initState() {
     super.initState();
     widgets = [
-      Home(user: widget.user),
-      HistoryScreen(
+      BookingListScreen(user: widget.user),
+      ServicesManageScreen(
         user: widget.user,
       ),
       InformationScreen(user: widget.user)
@@ -40,8 +40,12 @@ class _WrapperState extends State<Wrapper> {
           });
         },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.history), label: 'History'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.format_list_numbered_rtl_rounded),
+              label: 'List Booking'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.design_services_rounded),
+              label: 'Manage Services'),
           BottomNavigationBarItem(
               icon: Icon(Icons.info_outline_rounded), label: 'Information'),
         ],
