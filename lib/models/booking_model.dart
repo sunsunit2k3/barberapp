@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 class BookingModel {
   final String user_id; // Add this line
   final String id;

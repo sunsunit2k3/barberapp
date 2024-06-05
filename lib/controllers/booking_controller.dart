@@ -1,6 +1,5 @@
 import 'package:barberapp/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:random_string/random_string.dart';
 
 class BookingController {
   Future<void> addBooking(Map<String, dynamic> booking, id) async {

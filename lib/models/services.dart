@@ -1,4 +1,4 @@
-// service_model.dart
+// ignore_for_file: non_constant_identifier_names
 class ServiceModel {
   String name;
   String image_url;

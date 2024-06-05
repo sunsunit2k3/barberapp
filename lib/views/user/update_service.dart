@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:barberapp/controllers/booking_controller.dart';
 import 'package:barberapp/controllers/service_controller.dart';
 import 'package:barberapp/models/booking_model.dart';
@@ -74,7 +76,8 @@ class _UpdateServiceState extends State<UpdateService> {
                                   value: service.name)
                           ],
                           onChanged: dropdownCallback,
-                          style: TextStyle(color: Colors.blue, fontSize: 28),
+                          style:
+                              const TextStyle(color: Colors.blue, fontSize: 28),
                           iconEnabledColor: Colors.blue,
                         ),
                       ],
