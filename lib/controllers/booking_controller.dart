@@ -6,8 +6,8 @@ class BookingController {
     await FirestoreService().setDocument("bookings", id, booking);
   }
 
-  Future<Stream<QuerySnapshot>> getBookingDetails() async {
-    return FirebaseFirestore.instance.collection('services').snapshots();
+  Stream<QuerySnapshot> getBookingDetails() {
+    return FirebaseFirestore.instance.collection('bookings').snapshots();
   }
 
   Future<void> updateBooking(
@@ -29,9 +29,5 @@ class BookingController {
         .collection('bookings')
         .where('user_id', isEqualTo: id)
         .snapshots();
-  }
-
-  Future<void> getBookingById(String id) async {
-    await FirestoreService().getDocumentById("bookings", id);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:barberapp/models/services.dart';
+import 'package:barberapp/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ServiceController {
@@ -10,5 +11,22 @@ class ServiceController {
         }).toList();
       },
     );
+  }
+
+  Stream<QuerySnapshot> getSevicesDetails() {
+    return FirebaseFirestore.instance.collection('services').snapshots();
+  }
+
+  Future<void> addService(Map<String, dynamic> service, id) async {
+    await FirestoreService().setDocument("services", id, service);
+  }
+
+  Future<void> updateService(
+      Map<String, dynamic> serviceInfo, String id) async {
+    await FirestoreService().updateDocument("services", id, serviceInfo);
+  }
+
+  Future<void> deleteService(String id) async {
+    await FirestoreService().deleteDocument("services", id);
   }
 }

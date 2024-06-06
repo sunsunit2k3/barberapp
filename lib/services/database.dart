@@ -16,16 +16,4 @@ class FirestoreService {
       String collection, String id, Map<String, dynamic> data) async {
     return await _firestore.collection(collection).doc(id).update(data);
   }
-
-  Future<DocumentSnapshot> getDocumentById(String collection, String id) async {
-    return await _firestore.collection(collection).doc(id).get();
-  }
-
-  Future<QuerySnapshot> getDocumentsByUserId(
-      String collection, String userId) async {
-    return await _firestore
-        .collection(collection)
-        .where('userId', isEqualTo: userId)
-        .get();
-  }
 }
