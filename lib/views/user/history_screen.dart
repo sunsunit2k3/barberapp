@@ -1,7 +1,7 @@
 import 'package:barberapp/controllers/booking_controller.dart';
 import 'package:barberapp/models/booking_model.dart';
 import 'package:barberapp/models/user_model.dart';
-import 'package:barberapp/views/user/update_service.dart';
+import 'package:barberapp/views/user/update_booking.dart';
 import 'package:barberapp/widgets/snack_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -131,7 +131,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            UpdateService(
+                                                            UpdateBooking(
                                                                 booking:
                                                                     booking)));
                                               },

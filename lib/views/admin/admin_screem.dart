@@ -1,6 +1,6 @@
 import 'package:barberapp/models/user_model.dart';
-import 'package:barberapp/views/admin/booking_list_screen.dart';
-import 'package:barberapp/views/admin/services_manage_screen.dart';
+import 'package:barberapp/views/admin/service_manage.dart';
+import 'package:barberapp/views/admin/list_booking.dart';
 import 'package:barberapp/views/information_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -20,9 +20,7 @@ class _WrapperAdminState extends State<WrapperAdmin> {
     super.initState();
     widgets = [
       BookingListScreen(user: widget.user),
-      ServicesManageScreen(
-        user: widget.user,
-      ),
+      ListBooking(),
       InformationScreen(user: widget.user)
     ];
   }
@@ -41,11 +39,11 @@ class _WrapperAdminState extends State<WrapperAdmin> {
         },
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.format_list_numbered_rtl_rounded),
-              label: 'List Booking'),
-          BottomNavigationBarItem(
               icon: Icon(Icons.design_services_rounded),
               label: 'Manage Services'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.format_list_numbered_rtl_rounded),
+              label: 'List Booking'),
           BottomNavigationBarItem(
               icon: Icon(Icons.info_outline_rounded), label: 'Information'),
         ],

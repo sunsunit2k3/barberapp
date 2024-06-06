@@ -8,15 +8,15 @@ import 'package:barberapp/ultils/date_time_utils.dart';
 import 'package:barberapp/widgets/snack_bar.dart';
 import 'package:flutter/material.dart';
 
-class UpdateService extends StatefulWidget {
+class UpdateBooking extends StatefulWidget {
   final BookingModel booking;
-  const UpdateService({super.key, required this.booking});
+  const UpdateBooking({super.key, required this.booking});
 
   @override
-  State<UpdateService> createState() => _UpdateServiceState();
+  State<UpdateBooking> createState() => _UpdateBookingState();
 }
 
-class _UpdateServiceState extends State<UpdateService> {
+class _UpdateBookingState extends State<UpdateBooking> {
   late String dropDownValue;
   late Stream<List<ServiceModel>> _servicesStream;
   DateTime _selectedDate = DateTime.now();
