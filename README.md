@@ -47,8 +47,8 @@ Before you begin, ensure you have met the following requirements:
 
 1. **Clone the repository:**
     ```sh
-    git clone https://github.com/your-username/barber-app.git
-    cd barber-app
+    git clone https://github.com/your-username/barberapp.git
+    cd barberapp
     ```
 
 2. **Install dependencies:**
