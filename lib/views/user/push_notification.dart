@@ -20,7 +20,6 @@ class PushNotification {
 
     // Get the token
     final token = await _firebaseMessaging.getToken();
-    // print('Token: $token');
   }
 
   static Future locaNotiInit() async {

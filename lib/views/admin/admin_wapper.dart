@@ -1,8 +1,10 @@
 import 'package:barberapp/models/user_model.dart';
+import 'package:barberapp/views/admin/manage_image_screen.dart';
 import 'package:barberapp/views/admin/manage_services.dart';
 import 'package:barberapp/views/admin/list_booking.dart';
 import 'package:barberapp/views/information_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class WrapperAdmin extends StatefulWidget {
   final UserModel user;
@@ -14,38 +16,50 @@ class WrapperAdmin extends StatefulWidget {
 
 class _WrapperAdminState extends State<WrapperAdmin> {
   late List<Widget> widgets;
+  int index = 0;
 
   @override
   void initState() {
     super.initState();
     widgets = [
-      BookingListScreen(user: widget.user),
+      BookingListScreen(
+          user: widget.user), // Update this with the correct screen
       const ListBooking(),
-      InformationScreen(user: widget.user)
+      const ManageImageScreen(),
+      InformationScreen(user: widget.user),
     ];
   }
 
-  int index = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: widgets.elementAt(index),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: index,
-        onTap: (value) {
+      body: widgets[index],
+      bottomNavigationBar: GNav(
+        onTabChange: (i) {
           setState(() {
-            index = value;
+            index = i;
           });
         },
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.design_services_rounded),
-              label: 'Manage Services'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.format_list_numbered_rtl_rounded),
-              label: 'List Booking'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.info_outline_rounded), label: 'Information'),
+        backgroundColor: const Color(0xFFF3E5AB),
+        tabBackgroundColor: const Color(0xFFFFF8DC),
+        gap: 8,
+        tabs: const [
+          GButton(
+            icon: Icons.design_services_rounded,
+            text: 'Services',
+          ),
+          GButton(
+            icon: Icons.list_alt,
+            text: 'Booking List',
+          ),
+          GButton(
+            icon: Icons.image,
+            text: 'Pictures',
+          ),
+          GButton(
+            icon: Icons.info,
+            text: 'Information',
+          ),
         ],
       ),
     );

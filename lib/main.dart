@@ -1,4 +1,3 @@
-import 'package:barberapp/controllers/booking_controller.dart';
 import 'package:barberapp/firebase_options.dart';
 import 'package:barberapp/views/onboarding.dart';
 import 'package:barberapp/views/user/push_notification.dart';
@@ -17,7 +16,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  BookingController().deleteOutdatedPendingBookings();
   PushNotification.init();
   PushNotification.locaNotiInit();
   FirebaseMessaging.onBackgroundMessage(_firebaseBackgroundMessage);

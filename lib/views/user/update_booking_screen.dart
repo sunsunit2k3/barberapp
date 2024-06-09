@@ -182,8 +182,9 @@ class _UpdateBookingState extends State<UpdateBooking> {
                 onTap: () async {
                   Map<String, dynamic> booking = {
                     'serivce': dropDownValue,
-                    'date': _selectedDate,
-                    'time': _selectedTime,
+                    'date':
+                        " ${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}",
+                    'time': _selectedTime.format(context).toString(),
                   };
                   await BookingController()
                       .updateBooking(booking, widget.booking.id);

@@ -19,9 +19,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF3E5AB),
+      backgroundColor: const Color(0xFFFFF8DC),
       body: Container(
-        color: const Color(0xFFF3E5AB),
         margin: const EdgeInsets.only(top: 50.0, left: 20.0, right: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,14 +34,14 @@ class _HomeState extends State<Home> {
                     const Text(
                       "Hello",
                       style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 30.0,
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
                       widget.user.name,
                       style: const TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 30.0,
                           fontWeight: FontWeight.bold),
                     ),
@@ -55,24 +54,38 @@ class _HomeState extends State<Home> {
                     height: 80,
                     width: 80,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      // Handle error here
-                      return const Placeholder(
-                        fallbackHeight: 80,
-                        fallbackWidth: 80,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  (loadingProgress.expectedTotalBytes ?? 1)
+                              : null,
+                        ),
                       );
+                    },
+                    errorBuilder: (BuildContext context, Object error,
+                        StackTrace? stackTrace) {
+                      return const Image(
+                        image: AssetImage('assets/images/user.jpg'),
+                        height: 80,
+                        width: 80,
+                        fit: BoxFit.cover,
+                      ); //
                     },
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 20.0),
-            const Divider(color: Colors.white30),
+            const Divider(color: Colors.black),
             const SizedBox(height: 20.0),
             const Text(
               "Services",
               style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold),
             ),
