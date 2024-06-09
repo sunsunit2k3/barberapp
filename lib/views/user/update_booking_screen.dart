@@ -32,11 +32,11 @@ class _UpdateBookingState extends State<UpdateBooking> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xFF2b1615),
+        backgroundColor: const Color(0xFFF3E5AB),
         appBar: AppBar(
           title: const Text("Update Booking",
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
               )),
           backgroundColor: Theme.of(context).highlightColor,
         ),
@@ -53,7 +53,7 @@ class _UpdateBookingState extends State<UpdateBooking> {
                   return Container(
                     padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                     decoration: BoxDecoration(
-                        color: const Color(0xFFb4817e),
+                        color: const Color.fromARGB(255, 247, 241, 241),
                         borderRadius: BorderRadius.circular(20.0)),
                     width: MediaQuery.of(context).size.width,
                     child: Column(
@@ -76,9 +76,9 @@ class _UpdateBookingState extends State<UpdateBooking> {
                                   value: service.name)
                           ],
                           onChanged: dropdownCallback,
-                          style:
-                              const TextStyle(color: Colors.blue, fontSize: 28),
-                          iconEnabledColor: Colors.blue,
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 28),
+                          iconEnabledColor: Colors.black,
                         ),
                       ],
                     ),
@@ -89,7 +89,7 @@ class _UpdateBookingState extends State<UpdateBooking> {
               Container(
                 padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                 decoration: BoxDecoration(
-                    color: const Color(0xFFb4817e),
+                    color: const Color.fromARGB(255, 247, 241, 241),
                     borderRadius: BorderRadius.circular(20.0)),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
@@ -114,7 +114,7 @@ class _UpdateBookingState extends State<UpdateBooking> {
                           }),
                           child: const Icon(
                             Icons.calendar_month,
-                            color: Colors.white,
+                            color: Colors.black,
                             size: 40.0,
                           ),
                         ),
@@ -122,7 +122,7 @@ class _UpdateBookingState extends State<UpdateBooking> {
                         Text(
                           "${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}",
                           style: const TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 30.0,
                               fontWeight: FontWeight.w700),
                         ),
@@ -135,7 +135,7 @@ class _UpdateBookingState extends State<UpdateBooking> {
               Container(
                 padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                 decoration: BoxDecoration(
-                    color: const Color(0xFFb4817e),
+                    color: const Color.fromARGB(255, 247, 241, 241),
                     borderRadius: BorderRadius.circular(20.0)),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
@@ -160,7 +160,7 @@ class _UpdateBookingState extends State<UpdateBooking> {
                           }),
                           child: const Icon(
                             Icons.alarm,
-                            color: Colors.white,
+                            color: Colors.black,
                             size: 40.0,
                           ),
                         ),
@@ -168,7 +168,7 @@ class _UpdateBookingState extends State<UpdateBooking> {
                         Text(
                           _selectedTime.format(context),
                           style: const TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 30.0,
                               fontWeight: FontWeight.w700),
                         ),
@@ -201,7 +201,7 @@ class _UpdateBookingState extends State<UpdateBooking> {
                   child: const Center(
                     child: Text("UPDATE NOW",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
                         )),

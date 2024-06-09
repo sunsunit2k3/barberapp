@@ -43,14 +43,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: const Color(0xFFF3E5AB),
         title: const Text("Forgot Password",
             style: TextStyle(
                 fontSize: 24,
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.w400)),
       ),
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: const Color(0xFFFFF8DC),
       body: Container(
         margin: const EdgeInsets.only(left: 20, right: 20),
         child: Column(children: [
@@ -62,7 +62,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             child: const Text(
               "Enter your email to reset your password",
               style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
             ),
@@ -91,7 +91,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: "Enter Your Email",
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 22),
+                    hintStyle: TextStyle(color: Colors.black, fontSize: 22),
                     prefixIcon: Icon(Icons.email)),
               ),
             ),
@@ -124,7 +124,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       : const Text(
                           "Send Email",
                           style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 26.0,
                               fontWeight: FontWeight.w500),
                         ),

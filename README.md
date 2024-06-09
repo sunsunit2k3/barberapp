@@ -11,13 +11,29 @@ Welcome to the Barber App! This Flutter application allows users to book service
 
 ## Screenshots
 
+
 <div style="display:flex">
-<img src="screenshots/HomeScreen.png" alt="Home Screen" width="200"/>
-<img src="screenshots/BookingScreen.png" alt="Booking Screen" width="200"/>
-<img src="screenshots/HistoryScreen.png" alt="History Screen" width="200"/>
-<img src="screenshots/InforScreen.png" alt="Info Screen" width="200"/>
+  <h1>Login, SignUp, ResetPass, SignOut</h1>  
+  <img src="screenshots/LoginScreen.png" alt="" width="200"/>
+  <img src="screenshots/SignupScreen.png" alt="" width="200"/>
+  <img src="screenshots/ForgotPasswordScreen.png" alt="" width="200"/>
+  <img src="screenshots/InforScreen.png" alt="" width="200"/>
+</div>
+<div style="display:flex">
+  <h1>User Screen</h1>
+  <img src="screenshots/HomeScreen.png" alt="Home Screen" width="200"/>
+  <img src="screenshots/BookingScreen.png" alt="Booking Screen" width="200"/>
+  <img src="screenshots/HistoryScreen.png" alt="History Screen" width="200"/>
+  <img src="screenshots/UpdateScreen.png" alt="" width="200"/>
 </div>
 
+<div style="display:flex">
+  <h1>Admin Screen</h1>
+  <img src="screenshots/AdminScreem.png alt="width="200"/>
+  <img src="screenshots/ListBookingScreen.png"width="200"/>
+  <img src="screenshots/UpdateService.png" width="200"/>
+  <img src="screenshots/ChangeImage.png" width="200"/>
+</div>
 ## Getting Started
 
 ### Prerequisites
@@ -55,8 +71,22 @@ Before you begin, ensure you have met the following requirements:
       firebase_core: latest_version
       firebase_auth: latest_version
       cloud_firestore: latest_version
+      random_string: latest_version
+      firebase_messaging: latest_version
+      flutter_local_notifications: latest_version
+      firebase_storage: latest_version
+      image_picker: latest_version
+      intl: latest_version
       flutter:
         sdk: flutter
+    dev_dependencies:
+    flutter_test:
+        sdk: flutter
+      flutter_lints: ^3.0.0
+    flutter:
+      uses-material-design: true
+      assets:
+        - assets/images/
     ```
 
     Initialize Firebase in your `main.dart`:
