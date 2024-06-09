@@ -29,7 +29,7 @@ Welcome to the Barber App! This Flutter application allows users to book service
 
 <div style="display:flex">
   <h1>Admin Screen</h1>
-  <img src="screenshots/AdminScreem.png alt="width="200"/>
+  <img src="screenshots/AdminScreen.png"width="200"/>
   <img src="screenshots/ListBookingScreen.png"width="200"/>
   <img src="screenshots/UpdateService.png" width="200"/>
   <img src="screenshots/ChangeImage.png" width="200"/>
