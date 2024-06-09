@@ -1,6 +1,6 @@
 import 'package:barberapp/controllers/service_controller.dart';
 import 'package:barberapp/models/services.dart';
-import 'package:barberapp/views/admin/manage_images.dart';
+import 'package:barberapp/views/modal_image.dart';
 import 'package:barberapp/widgets/snack_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -87,6 +87,23 @@ class _UpdateServiceState extends State<UpdateService> {
                     Image.network(
                       selectedImageUrl!,
                       height: 80,
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    (loadingProgress.expectedTotalBytes ?? 1)
+                                : null,
+                          ),
+                        );
+                      },
+                      errorBuilder: (BuildContext context, Object error,
+                          StackTrace? stackTrace) {
+                        return const SizedBox
+                            .shrink(); // Returns an empty widget if there is an error
+                      },
                     )
                   else
                     Image.network(widget.service.image_url, height: 80),
@@ -96,9 +113,11 @@ class _UpdateServiceState extends State<UpdateService> {
                           await showModalBottomSheet<String>(
                         context: context,
                         builder: (BuildContext context) {
-                          return const SizedBox(
+                          return SizedBox(
                             height: 600,
-                            child: ManageImages(),
+                            child: ModalImage(
+                              folderName: "images",
+                            ),
                           );
                         },
                       );

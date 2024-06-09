@@ -36,13 +36,13 @@ class _InformationScreenState extends State<InformationScreen> {
             Text(
               'Profile',
               style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 28,
-                  fontWeight: FontWeight.w500),
+                  color: Colors.black,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w600),
             ),
             Icon(
               Icons.info_outline_rounded,
-              color: Colors.white,
+              color: Colors.black,
               size: 30,
             )
           ],
@@ -56,9 +56,23 @@ class _InformationScreenState extends State<InformationScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Center(
-              child: CircleAvatar(
-                radius: 50,
-                backgroundImage: NetworkImage(widget.user.image),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(70.0),
+                child: Image.network(
+                  widget.user.image,
+                  height: 100,
+                  width: 100,
+                  fit: BoxFit.cover,
+                  errorBuilder: (BuildContext context, Object error,
+                      StackTrace? stackTrace) {
+                    return const Image(
+                      image: AssetImage('assets/images/user.jpg'),
+                      height: 100,
+                      width: 100,
+                      fit: BoxFit.cover,
+                    ); //
+                  },
+                ),
               ),
             ),
             const SizedBox(height: 20),

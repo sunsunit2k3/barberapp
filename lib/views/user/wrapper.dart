@@ -3,6 +3,7 @@ import 'package:barberapp/views/user/history_screen.dart';
 import 'package:barberapp/views/user/home_screen.dart';
 import 'package:barberapp/views/information_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class Wrapper extends StatefulWidget {
   final UserModel user;
@@ -32,18 +33,28 @@ class _WrapperState extends State<Wrapper> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: widgets.elementAt(index),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: index,
-        onTap: (value) {
+      bottomNavigationBar: GNav(
+        backgroundColor: const Color(0xFFF3E5AB),
+        tabBackgroundColor: const Color(0xFFFFF8DC),
+        gap: 8,
+        onTabChange: (i) {
           setState(() {
-            index = value;
+            index = i;
           });
         },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.history), label: 'History'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.info_outline_rounded), label: 'Information'),
+        tabs: const [
+          GButton(
+            icon: Icons.home,
+            text: 'Home',
+          ),
+          GButton(
+            icon: Icons.history,
+            text: 'History',
+          ),
+          GButton(
+            icon: Icons.info,
+            text: 'Information',
+          ),
         ],
       ),
     );

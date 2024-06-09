@@ -28,7 +28,7 @@ class _BookingListScreenState extends State<BookingListScreen> {
         title: const Center(
             child: Text(
           'Sevices Management',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
         )),
         backgroundColor: const Color(0xFFF3E5AB),
       ),
@@ -94,10 +94,28 @@ class _BookingListScreenState extends State<BookingListScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Image.network(
-                                  service.image_url,
-                                  height: 80,
-                                ),
+                                Image.network(service.image_url, height: 80,
+                                    loadingBuilder: (BuildContext context,
+                                        Widget child,
+                                        ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      value:
+                                          loadingProgress.expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  (loadingProgress
+                                                          .expectedTotalBytes ??
+                                                      1)
+                                              : null,
+                                    ),
+                                  );
+                                }, errorBuilder: (BuildContext context,
+                                        Object error, StackTrace? stackTrace) {
+                                  return const SizedBox.shrink();
+                                }),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [

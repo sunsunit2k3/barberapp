@@ -23,11 +23,12 @@ class _ListBookingState extends State<ListBooking> {
           child: Text(
             'List Booking',
             style: TextStyle(
-                color: Colors.white, fontSize: 28, fontWeight: FontWeight.w400),
+                color: Colors.black, fontSize: 30, fontWeight: FontWeight.w600),
           ),
         ),
         backgroundColor: const Color(0xFFF3E5AB),
       ),
+      backgroundColor: const Color(0xFFFFF8DC),
       body: Padding(
         padding: const EdgeInsets.only(left: 10.0, right: 10, top: 20),
         child: Column(
@@ -55,6 +56,9 @@ class _ListBookingState extends State<ListBooking> {
                       return Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Card(
+                          color: booking.status == 'pending'
+                              ? Colors.red[100]
+                              : Colors.green[100],
                           child: ListTile(
                             title: Text(booking.service),
                             subtitle: Column(
