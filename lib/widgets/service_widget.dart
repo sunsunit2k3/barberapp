@@ -1,7 +1,7 @@
 import 'package:barberapp/models/services.dart';
 import 'package:barberapp/models/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:barberapp/views/user/booking_view.dart';
+import 'package:barberapp/views/user/booking_screen.dart';
 
 class ServiceWidget extends StatelessWidget {
   final ServiceModel service;
@@ -37,7 +37,7 @@ class ServiceWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image(
-                image: AssetImage(serviceImageURL),
+                image: NetworkImage(serviceImageURL),
                 height: 80,
                 width: 80,
               ),

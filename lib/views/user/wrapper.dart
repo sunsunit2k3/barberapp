@@ -1,6 +1,6 @@
 import 'package:barberapp/models/user_model.dart';
 import 'package:barberapp/views/user/history_screen.dart';
-import 'package:barberapp/views/user/home_view.dart';
+import 'package:barberapp/views/user/home_screen.dart';
 import 'package:barberapp/views/information_screen.dart';
 import 'package:flutter/material.dart';
 

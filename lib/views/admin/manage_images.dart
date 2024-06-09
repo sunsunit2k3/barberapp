@@ -49,7 +49,7 @@ class _ManageImagesState extends State<ManageImages> {
         title: const Center(
           child: Text('Photo Gallery'),
         ),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: const Color(0xFFF3E5AB),
         actions: [
           IconButton(
               onPressed: pickAndManageImages, icon: const Icon(Icons.photo))

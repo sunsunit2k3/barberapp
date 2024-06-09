@@ -1,5 +1,5 @@
 import 'package:barberapp/models/user_model.dart';
-import 'package:barberapp/views/admin/service_manage.dart';
+import 'package:barberapp/views/admin/manage_services.dart';
 import 'package:barberapp/views/admin/list_booking.dart';
 import 'package:barberapp/views/information_screen.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ class _WrapperAdminState extends State<WrapperAdmin> {
     super.initState();
     widgets = [
       BookingListScreen(user: widget.user),
-      ListBooking(),
+      const ListBooking(),
       InformationScreen(user: widget.user)
     ];
   }

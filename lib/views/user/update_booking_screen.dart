@@ -180,11 +180,13 @@ class _UpdateBookingState extends State<UpdateBooking> {
               const SizedBox(height: 20.0),
               GestureDetector(
                 onTap: () async {
-                  await BookingController().updateBooking(
-                      dropDownValue,
-                      "${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}",
-                      _selectedTime.format(context),
-                      widget.booking.id);
+                  Map<String, dynamic> booking = {
+                    'serivce': dropDownValue,
+                    'date': _selectedDate,
+                    'time': _selectedTime,
+                  };
+                  await BookingController()
+                      .updateBooking(booking, widget.booking.id);
                   showSnackBar(context, "Booking Updated Successfully");
                   Navigator.pop(context);
                 },

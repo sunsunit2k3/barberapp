@@ -75,14 +75,7 @@ class _SignupState extends State<Signup> {
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.only(top: 50.0, left: 20.0),
             decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFFB81635),
-                  Color(0xff621d3c),
-                  Color(0xff311937),
-                ],
-              ),
-              color: Color(0xFF2b1615),
+              color: Color(0xFFF3E5AB),
             ),
             child: const Text(
               "Create your\nAccount !",
@@ -118,7 +111,7 @@ class _SignupState extends State<Signup> {
                       style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xFFB81635)),
+                          color: Color(0xFFF3E5AB)),
                     ),
                     TextFormField(
                       validator: (value) {
@@ -139,7 +132,7 @@ class _SignupState extends State<Signup> {
                       style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xFFB81635)),
+                          color: Color(0xFFF3E5AB)),
                     ),
                     TextFormField(
                       validator: (value) {
@@ -160,7 +153,7 @@ class _SignupState extends State<Signup> {
                       style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xFFB81635)),
+                          color: Color(0xFFF3E5AB)),
                     ),
                     TextFormField(
                       validator: (value) {
@@ -192,13 +185,7 @@ class _SignupState extends State<Signup> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [
-                              Color(0xFFB81635),
-                              Color(0xff621d3c),
-                              Color(0xff311937),
-                            ],
-                          ),
+                          color: const Color(0xFFF3E5AB),
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                         child: Center(
@@ -223,8 +210,10 @@ class _SignupState extends State<Signup> {
                       children: [
                         Text(
                           "Already have an account?",
-                          style:
-                              TextStyle(color: Color(0xff621d3c), fontSize: 20),
+                          style: TextStyle(
+                              color: Color(0xFFF3E5AB),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
@@ -241,7 +230,7 @@ class _SignupState extends State<Signup> {
                           Text(
                             "Sign In",
                             style: TextStyle(
-                                color: Color(0xFFB81635),
+                                color: Color(0xFFF3E5AB),
                                 fontSize: 28.0,
                                 fontWeight: FontWeight.w500),
                           ),

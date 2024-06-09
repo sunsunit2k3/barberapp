@@ -36,19 +36,20 @@ class _InformationScreenState extends State<InformationScreen> {
             Text(
               'Profile',
               style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontSize: 28,
                   fontWeight: FontWeight.w500),
             ),
             Icon(
               Icons.info_outline_rounded,
-              color: Colors.black,
+              color: Colors.white,
               size: 30,
             )
           ],
         ),
-        backgroundColor: const Color(0XFFe29452),
+        backgroundColor: const Color(0xFFF3E5AB),
       ),
+      backgroundColor: const Color(0xFFFFF8DC),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -81,7 +82,7 @@ class _InformationScreenState extends State<InformationScreen> {
                 ),
                 child: const Text(
                   'Logout',
-                  style: TextStyle(fontSize: 20, color: Colors.black),
+                  style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
             ),

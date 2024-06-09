@@ -19,8 +19,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2b1615),
+      backgroundColor: const Color(0xFFF3E5AB),
       body: Container(
+        color: const Color(0xFFF3E5AB),
         margin: const EdgeInsets.only(top: 50.0, left: 20.0, right: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
