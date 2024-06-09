@@ -1,6 +1,7 @@
 import 'package:barberapp/controllers/booking_controller.dart';
 import 'package:barberapp/controllers/user_controller.dart';
 import 'package:barberapp/models/booking_model.dart';
+import 'package:barberapp/widgets/snack_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -48,8 +49,6 @@ class _ListBookingState extends State<ListBooking> {
                   return ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
-                      var userData = userController
-                          .getUserId(snapshot.data!.docs[index].id);
                       var bookingData = snapshot.data!.docs[index].data()
                           as Map<String, dynamic>;
                       var booking = BookingModel.fromMap(bookingData);
@@ -58,21 +57,32 @@ class _ListBookingState extends State<ListBooking> {
                         child: Card(
                           child: ListTile(
                             title: Text(booking.service),
-                            subtitle: Row(
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(booking.date),
+                                Text("Date: ${booking.date}"),
                                 const SizedBox(
                                   width: 10,
                                 ),
-                                Text(booking.time)
+                                Text("Time: ${booking.time}"),
+                                Text("Name: ${booking.user_name}"),
                               ],
                             ),
-                            trailing: GestureDetector(
-                              child: const Text("Click Completed"),
-                              onTap: () {
-                                // Handle the tap event here
-                              },
-                            ),
+                            trailing: booking.status == 'pending'
+                                ? GestureDetector(
+                                    onTap: () {
+                                      bookingController.updateBooking(
+                                        {"status": "completed"},
+                                        snapshot.data!.docs[index].id,
+                                      );
+                                      showSnackBar(
+                                          context, "Completed successfully");
+                                    },
+                                    child: const Text("Click to complete"),
+                                  )
+                                : GestureDetector(
+                                    child: const Text("Completed"),
+                                  ),
                           ),
                         ),
                       );

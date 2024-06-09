@@ -3,7 +3,6 @@ import 'package:barberapp/models/services.dart';
 import 'package:barberapp/models/user_model.dart';
 import 'package:barberapp/views/admin/add_services.dart';
 import 'package:barberapp/views/admin/update_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class BookingListScreen extends StatefulWidget {
@@ -73,8 +72,8 @@ class _BookingListScreenState extends State<BookingListScreen> {
                 height: 40.0,
               ),
               Expanded(
-                child: StreamBuilder<QuerySnapshot>(
-                    stream: _controller.getSevicesDetails(),
+                child: StreamBuilder<List<ServiceModel>>(
+                    stream: _controller.getServicesStream(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
@@ -82,11 +81,9 @@ class _BookingListScreenState extends State<BookingListScreen> {
                         );
                       }
                       return ListView.builder(
-                        itemCount: snapshot.data!.docs.length,
+                        itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
-                          var service = ServiceModel.fromMap(
-                              snapshot.data!.docs[index].data()
-                                  as Map<String, dynamic>);
+                          final service = snapshot.data![index];
                           return Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),

@@ -20,16 +20,12 @@ class PushNotification {
 
     // Get the token
     final token = await _firebaseMessaging.getToken();
-    print('Token: $token');
+    // print('Token: $token');
   }
 
   static Future locaNotiInit() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
-    final DarwinInitializationSettings initializationSettingsDarwin =
-        DarwinInitializationSettings(
-      onDidReceiveLocalNotification: (id, title, body, payload) => null,
-    );
     InitializationSettings initializationSettings =
         const InitializationSettings(
       android: initializationSettingsAndroid,

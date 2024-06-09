@@ -13,10 +13,6 @@ class ServiceController {
     );
   }
 
-  Stream<QuerySnapshot> getSevicesDetails() {
-    return FirebaseFirestore.instance.collection('services').snapshots();
-  }
-
   Future<void> addService(Map<String, dynamic> service, id) async {
     await FirestoreService().setDocument("services", id, service);
   }

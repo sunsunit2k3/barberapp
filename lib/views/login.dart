@@ -1,9 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:barberapp/models/user_model.dart';
-import 'package:barberapp/views/admin/admin_screem.dart';
+import 'package:barberapp/views/admin/admin_wapper.dart';
 import 'package:barberapp/views/signup.dart';
-import 'package:barberapp/views/user/forgot_password_screen.dart';
+import 'package:barberapp/views/forgot_password_screen.dart';
 import 'package:barberapp/views/user/wrapper.dart';
 import 'package:barberapp/widgets/snack_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -96,8 +96,8 @@ class _LoginState extends State<Login> {
             height: MediaQuery.of(context).size.height / 2,
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.only(top: 50.0, left: 20.0),
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
+            decoration: const BoxDecoration(
+              color: Color(0xFFF3E5AB),
             ),
             child: const Text(
               "Hello\nSign In!",
@@ -127,12 +127,12 @@ class _LoginState extends State<Login> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Gmail",
                       style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.w400,
-                          color: Theme.of(context).primaryColor),
+                          color: Color(0xFFF3E5AB)),
                     ),
                     TextFormField(
                       validator: (value) {
@@ -148,12 +148,12 @@ class _LoginState extends State<Login> {
                           prefixIcon: Icon(Icons.email)),
                     ),
                     const SizedBox(height: 20.0),
-                    Text(
+                    const Text(
                       "Password",
                       style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.w400,
-                          color: Theme.of(context).primaryColor),
+                          color: Color(0xFFF3E5AB)),
                     ),
                     TextFormField(
                       validator: (value) {
@@ -188,7 +188,7 @@ class _LoginState extends State<Login> {
                             style: TextStyle(
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xff311937)),
+                                color: Color(0xFFF3E5AB)),
                           ),
                         ),
                       ],
@@ -206,7 +206,7 @@ class _LoginState extends State<Login> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
+                          color: const Color(0xFFF3E5AB),
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                         child: Center(
@@ -226,14 +226,15 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     const SizedBox(height: 30.0),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
                           "Don't have an account?",
                           style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                              fontSize: 20),
+                              color: Color(0xFFF3E5AB),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
@@ -245,12 +246,12 @@ class _LoginState extends State<Login> {
                               builder: (context) => const Signup()),
                         );
                       },
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text("Sign Up",
                               style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
+                                  color: Color(0xFFF3E5AB),
                                   fontSize: 28.0,
                                   fontWeight: FontWeight.w500)),
                         ],

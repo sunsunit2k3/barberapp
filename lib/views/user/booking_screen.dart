@@ -26,9 +26,9 @@ class _BookingState extends State<Booking> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2b1615),
+      backgroundColor: const Color(0xFFF3E5AB),
       body: Container(
-        margin: const EdgeInsets.only(left: 10.0),
+        margin: const EdgeInsets.only(left: 10.0, right: 10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -40,7 +40,7 @@ class _BookingState extends State<Booking> {
                 padding: EdgeInsets.only(top: 50.0),
                 child: Icon(
                   Icons.arrow_back_ios,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
               ),
             ),
@@ -48,7 +48,7 @@ class _BookingState extends State<Booking> {
             const Text(
               "Let's the\njouney begin",
               style: TextStyle(
-                  color: Colors.white70,
+                  color: Colors.black,
                   fontSize: 28.0,
                   fontWeight: FontWeight.w700),
             ),
@@ -65,7 +65,7 @@ class _BookingState extends State<Booking> {
               child: Text(
                 widget.service,
                 style: const TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 25.0,
                     fontWeight: FontWeight.w700),
               ),
@@ -76,7 +76,7 @@ class _BookingState extends State<Booking> {
                 Container(
                   padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                   decoration: BoxDecoration(
-                      color: const Color(0xFFb4817e),
+                      color: const Color(0xFFFFF8DC),
                       borderRadius: BorderRadius.circular(20.0)),
                   width: MediaQuery.of(context).size.width,
                   child: Column(
@@ -101,7 +101,7 @@ class _BookingState extends State<Booking> {
                             }),
                             child: const Icon(
                               Icons.calendar_month,
-                              color: Colors.white,
+                              color: Colors.black,
                               size: 40.0,
                             ),
                           ),
@@ -109,7 +109,7 @@ class _BookingState extends State<Booking> {
                           Text(
                             "${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}",
                             style: const TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontSize: 30.0,
                                 fontWeight: FontWeight.w700),
                           ),
@@ -122,7 +122,7 @@ class _BookingState extends State<Booking> {
                 Container(
                   padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                   decoration: BoxDecoration(
-                      color: const Color(0xFFb4817e),
+                      color: const Color(0xFFFFF8DC),
                       borderRadius: BorderRadius.circular(20.0)),
                   width: MediaQuery.of(context).size.width,
                   child: Column(
@@ -147,7 +147,7 @@ class _BookingState extends State<Booking> {
                             }),
                             child: const Icon(
                               Icons.alarm,
-                              color: Colors.white,
+                              color: Colors.black,
                               size: 40.0,
                             ),
                           ),
@@ -155,7 +155,7 @@ class _BookingState extends State<Booking> {
                           Text(
                             _selectedTime.format(context),
                             style: const TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontSize: 30.0,
                                 fontWeight: FontWeight.w700),
                           ),
@@ -175,6 +175,7 @@ class _BookingState extends State<Booking> {
                           "${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}",
                       "time": _selectedTime.format(context).toString(),
                       "user_id": widget.user.id,
+                      "user_name": widget.user.name,
                       "status": "pending",
                     };
                     await BookingController()
@@ -195,7 +196,7 @@ class _BookingState extends State<Booking> {
                     child: const Center(
                       child: Text("BOOK NOW",
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                           )),
